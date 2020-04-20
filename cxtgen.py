@@ -5,7 +5,7 @@ import sys
 
 
 def usage():
-    print "%s |G| |M| context" % (__file__)
+    print("%s |G| |M| context" % (__file__))
     return -1
 
 
@@ -19,12 +19,12 @@ if __name__ == "__main__":
 
     lines = list()
     lines.append("B\ntest\n%d\n%d\n" % (G, M))
-    lines.append("\n".join(str(x) for x in xrange(G)) + "\n")
-    lines.append("\n".join(str(x) for x in xrange(M)) + "\n")
-    for j in xrange(G):
+    lines.append("\n".join(str(x) for x in range(G)) + "\n")
+    lines.append("\n".join(str(x) for x in range(M)) + "\n")
+    for j in range(G):
         x = random.getrandbits(M)
-        lines.append("".join(".X"[1 & (x >> i)] for i in xrange(M)) + "\n")
+        lines.append("".join(".X"[1 & (x >> i)] for i in range(M)) + "\n")
 
-    with file(filename_out, "w+") as f:
+    with open(filename_out, "w+") as f:
         f.writelines(lines)
     f.close()
