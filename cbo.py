@@ -120,7 +120,7 @@ def skip_empty( f ):
 		f.seek(pos)
 
 def burmeister(filename) :
-	with file( filename, "r" ) as f:
+	with open( filename, "r" ) as f:
 # File format marker
 		txt = f.readline().strip();
 		if txt is not "B":
@@ -303,13 +303,14 @@ class Context(object):
 			return
 		lines = list()
 ## Pick a random key from the lattice dictionary and from it find the root pair
-		R = L[ L.keys()[ 0 ] ].get_inf( )
+		keys = list(L.keys())
+		R = L[ keys[ 0 ] ].get_inf( )
 ## Get the number of pairs and edges
 		n = len( L )
 		e = sum( [ len(x.sup) for x in L.values() ] )
 		lines.append( "%d\n%d\n" %( n, e ) )
 ## Identify pairs with consecutive natural numbers
-		np = L.keys() ; pn = dict()
+		np = list(L.keys()) ; pn = dict()
 		for x in range( n ) :
 			pn[ np[ x ] ] = x
 			A, B = self.GM( [ L[ np[ x ] ].pair ], dual )[ 0 ]
@@ -318,11 +319,11 @@ class Context(object):
 		for k, x in L.items() :
 			if x.sup :
 				lines.append( "%d %s\n" %( pn[ k ], " ".join( [ str( pn[ z.tag ] ) for z in x.sup ] ) ) )
-		with file( filename, "w+" ) as f:
+		with open( filename, "w+" ) as f:
 			f.writelines( lines )
 
 def usage() :
-	print "%s <path-to-context> <output-filename> <intent/extent>" % (__file__)
+	print("%s <path-to-context> <output-filename> <intent/extent>" % (__file__))
 	return -1
 
 if __name__ == '__main__' :
