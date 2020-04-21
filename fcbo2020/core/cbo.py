@@ -353,24 +353,10 @@ class Context(object):
             f.writelines(lines)
 
 
-def usage():
-    print("%s <path-to-context> <output-filename> <intent/extent>" % (__file__))
-    return -1
+def main(context, output, intent=False):
+    ctx = burmeister(context)
 
-
-if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        exit(usage())
-
-    filename_in = sys.argv[1]
-    filename_out = sys.argv[2]
-    intent_driven = True
-    if len(sys.argv) == 4:
-        intent_driven = True if sys.argv[3].lower() == "y" else False
-
-    ctx = burmeister(filename_in)
-
-    if intent_driven:
+    if intent:
         ## Intent driven CbO
         (Tree, Lattice), Duality_Flag = ctx.CbOM()
     else:
@@ -378,4 +364,15 @@ if __name__ == "__main__":
         (Tree, Lattice), Duality_Flag = ctx.CbOG()
 
     ## Save the lattice
-    ctx.save_lattice(Lattice, filename_out, Duality_Flag)
+    ctx.save_lattice(Lattice, output, Duality_Flag)
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('context', type=str)
+    parser.add_argument('output', type=str)
+    parser.add_argument('--intent', default=False, action='store_true')
+
+    main(**vars(parser.parse_args()))
