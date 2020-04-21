@@ -1,24 +1,12 @@
 #! /usr/bin/env python
 # -*- coding: UTF-8 -*-
-####################################################################################################
-####################################################################################################
-####################################################################################################
-##### USAGE: python cbo.py context output intent/extent-flag
-##### Formal concept analysis begins at line 106. Look for ##FCA_HERE## marker.
-#####  WARNING: THE CODE IS HEAVILY COMMENTED!
-__date__ = "2014-10-30"
-__status__ = "Barely useable"
-
-"""Sorry, no Russian while coding!"""
-
-####################################################################################################
-####################################################################################################
-####################################################################################################
+# Formal concept analysis begins at line 106. Look for ##FCA_HERE## marker.
+#  WARNING: THE CODE IS HEAVILY COMMENTED!
 import re
 import sys
 
-###### intbitset is used for fast hardware optimized set operations
-###      http://intbitset.readthedocs.org/en/latest/#
+# intbitset is used for fast hardware optimized set operations
+#   http://intbitset.readthedocs.org/en/latest/#
 import intbitset as bs
 
 ## This tiny function calculates a unique identifier of a subset of integers.
@@ -200,12 +188,12 @@ class Context(object):
     ## The context (G,M,R) defines a Galois connection between the power sets of G
     ##  and M. u:2^G->2^M and d:2^G->2^M possess the following properties:
     ##  for all A,X ≤ G and B,Y ≤ M the following are true:
-    ##    GALOIS: 	A ≤ dB <=> B ≤ uA
-    ##    AMON: 	A ≤ X => uX ≤ uA ; B ≤ Y => dY ≤ dB
-    ##    UNION: 	u(A|X) = uA & uX ; d(B|Y) = dB & dY
+    ##    GALOIS:   A ≤ dB <=> B ≤ uA
+    ##    AMON:     A ≤ X => uX ≤ uA ; B ≤ Y => dY ≤ dB
+    ##    UNION:    u(A|X) = uA & uX ; d(B|Y) = dB & dY
     ##  Different composition of "u" and "d" define closure operators on G and M:
-    ##    CLOS: 	a) A ≤ duA; b) A≤C => duA ≤ duC; c) duduA = duA
-    ##    			a) B ≤ udB; b) B≤D => udB ≤ udD; c) ududB = udB
+    ##    CLOS:     a) A ≤ duA; b) A≤C => duA ≤ duC; c) duduA = duA
+    ##              a) B ≤ udB; b) B≤D => udB ≤ udD; c) ududB = udB
     def u(self, S):
         ## The "up" function maps a subset of G to a subset of M through the context
         ##  relation R
@@ -218,7 +206,7 @@ class Context(object):
         return set(res.intersection(*[self.__ctx[1][x] for x in bs.intbitset(S)]))
 
     # def reduce(self):
-    # 	pass
+    #   pass
     def __CbO(self, P, G, u, d):
         ## This function initiates the CbO for the Galois connection (u,d)
         ##  In future one should abstract the Galois connection into a separate class.
@@ -251,7 +239,7 @@ class Context(object):
         ##   connection: B = uA, A = dB, where u:Ω_A -> Ω_B is the Galois map
         ##   to obtain the reflection of A in the universe of B and d:Ω_B -> Ω_A
         ##   reflects B into A's universe. G is the size of A's universe (|Ω_A|)
-        ##DEBUG##		assert( B == u(A) ) ; assert( A == d(B) )
+        ##DEBUG##       assert( B == u(A) ) ; assert( A == d(B) )
         ## This function is called only when a new concept has been canonically generated
         ## The lattice is indexed by the spawning set
         suc[label(A)] = successor_node(label(A), (A, B))
@@ -265,7 +253,7 @@ class Context(object):
             ##   it is true that u(A | {f}) = uA & u{f} = B & u{f} (UNION)
             Z = B & u({f})
             Y = d(Z)
-            ##DEBUG##			print " "*lvl, "%d»» %s %d]%s)" % ( lvl, "".join([str(e) for e in A]), f, "".join([str(g) for g in (Y-(A|{f}))]) )
+            ##DEBUG##           print " "*lvl, "%d»» %s %d]%s)" % ( lvl, "".join([str(e) for e in A]), f, "".join([str(g) for g in (Y-(A|{f}))]) )
             ## Perform the canonicity test: if all elements of Y \ A ( the newly generated
             ##  volume) are greater of equal to f then the generation (Y,Z) from A is
             ##  canonical. The test min( h | h in du(A | {f})-A ) ≥ f is actually equivalent
@@ -302,7 +290,7 @@ class Context(object):
             ##  the Galois connection (u,d)
             Y = B & u({j})
             X = d(Y)
-            ##DEBUG##		print "»» %s %d]%s)" % ( "".join([str(e) for e in A]), j, "".join( [str(g) for g in ( Z - ( A | { j } )  ) ] ) )
+            ##DEBUG##       print "»» %s %d]%s)" % ( "".join([str(e) for e in A]), j, "".join( [str(g) for g in ( Z - ( A | { j } )  ) ] ) )
             ## Add the new heir to the list
             queue[label(X)] = (X, Y)
         ## Weed out nested heirs unfortunately due to the fact that set inclusion is
