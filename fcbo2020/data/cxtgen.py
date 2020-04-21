@@ -3,6 +3,10 @@
 import random
 import sys
 
+# should propbably refactor this code
+#  * must return a context object
+#  * saving to a special format must be handled in the relevant script
+
 
 def usage():
     print("%s |G| |M| context" % (__file__))

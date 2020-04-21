@@ -1,13 +1,19 @@
-#! /usr/bin/env python
-# -*- coding: UTF-8 -*-
-# Formal concept analysis begins at line 106. Look for ##FCA_HERE## marker.
-#  WARNING: THE CODE IS HEAVILY COMMENTED!
 import re
 import sys
+
+# this code has a ton of problems. Ideally:
+# * `successor_node` and `lattice_node` are custom poorly written object
+#   and now there are much better intuitive solutions out there, e.g. networkx
+# * there should be a separate function to transpose the context
+# * and a single core cbo procedure, which takes in a context tuple
+#   and computes the lattice
+
+# Formal concept analysis begins at line 106. Look for ##FCA_HERE## marker.
 
 # intbitset is used for fast hardware optimized set operations
 #   http://intbitset.readthedocs.org/en/latest/#
 import intbitset as bs
+
 
 ## This tiny function calculates a unique identifier of a subset of integers.
 def label(S):

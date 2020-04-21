@@ -2,6 +2,11 @@ import intbitset as bs
 from ..core import Context
 
 
+# this does not need a special (heavy) conext object from the core
+# * we might get by just returning a (G, M binary matrix) tuple
+# * there is no save(G, M, ctx) here
+# * context transposing is not a part of loading files!
+
 def skip_empty(f):
     # Skip an empty line if there is one
     pos = f.tell()
