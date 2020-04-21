@@ -7,11 +7,7 @@
 ##### Formal concept analysis begins at line 106. Look for ##FCA_HERE## marker.
 #####  WARNING: THE CODE IS HEAVILY COMMENTED!
 __date__ = "2014-10-30"
-__author__ = "Nazarov Ivan"
-__email__ = "innazarov@edu.hse.ru"
 __status__ = "Barely useable"
-__version__ = "0.8"
-__dscription__ = "Python realisation of CbO with the possibility of fc lattice recovery. Assigment #03."
 
 """Sorry, no Russian while coding!"""
 

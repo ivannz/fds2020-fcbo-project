@@ -10,5 +10,11 @@ setup(
     ],
     install_requires=[
         'intbitset'
-    ]
+    ],
+    author="Nazarov Ivan",
+    email="innazarov@edu.hse.ru",
+    dscription="""
+        Assigment #03: Python realisation of fast CbO with the possibility
+        of recovering the full Formal Concept lattice.
+    """
 )
