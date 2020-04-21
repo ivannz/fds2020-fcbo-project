@@ -7,7 +7,11 @@ setup(
         'fcbo2020',
         'fcbo2020.core',
         'fcbo2020.data',
-    ],
+    ], package_data={
+        'fcbo2020.data': [
+            'examples/*.cxt'
+        ]
+    },
     install_requires=[
         'intbitset'
     ],
